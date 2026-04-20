@@ -205,9 +205,11 @@ int commit_create(const char *message, ObjectID *commit_id_out) {
      else
         c.has_parent = 0;
 
-    snprintf(c.author, sizeof(c.author), "%s", pes_author());
+    memset(c.author, 0, sizeof(c.author));
+    strncpy(c.author, pes_author(), sizeof(c.author) - 1);
     c.timestamp = time(NULL);
-    snprintf(c.message, sizeof(c.message), "%s", message);
+    memset(c.message, 0, sizeof(c.message));
+    strncpy(c.message, message, sizeof(c.message) - 1);
     void *data = NULL;
     size_t len = 0;
 
