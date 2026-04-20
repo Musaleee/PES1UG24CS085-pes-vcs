@@ -140,6 +140,8 @@ int tree_from_index(ObjectID *id_out) {
     if (tree_serialize(&tree, &data, &len) != 0)
         return -1;
 
-    (void)id_out;
-    return -1;
+    int rc = object_write(OBJ_TREE, data, len, id_out);
+    free(data);
+
+    return rc;
 }
